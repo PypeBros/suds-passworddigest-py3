@@ -54,7 +54,7 @@ class UsernameDigestToken(UsernameToken):
 		root.append(u)
 
 		p = Element('Password', ns=wssens)
-		p.setText(self.generate_digest())
+		p.setText(self.generate_digest().decode('ascii'))
 		p.set(wspassd[0], wspassd[1])
 		root.append(p)
 
@@ -63,7 +63,7 @@ class UsernameDigestToken(UsernameToken):
 		if not isinstance(self.nonce, bytes) :
 			nonce_bytes = self.nonce.encode('utf-8')
 
-		n.setText(base64.encodebytes(nonce_bytes)[:-1])
+		n.setText((base64.encodebytes(nonce_bytes)[:-1]).decode('ascii'))
 		n.set(wsenctype[0], wsenctype[1])
 		root.append(n)
 
